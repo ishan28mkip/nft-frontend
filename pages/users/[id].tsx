@@ -1,6 +1,6 @@
 import type { NextPage, GetServerSidePropsContext } from "next";
 import Axios from "axios";
-import { Table, Button, Typography } from "antd";
+import { Table, Button, Typography, message } from "antd";
 import Link from "next/link";
 
 const { Title } = Typography;
@@ -39,24 +39,28 @@ const columns = [
 ];
 
 const Account: NextPage<UserData> = ({ userData, refer }) => {
-  // Convert to table data format
-  const tableData = userData.map((userDataItem) => {
-    return { ...userDataItem.attributes, key: userDataItem.attributes.id };
-  });
-  return (
-    <div>
-      {refer && (
-        <Link href={`/search/${refer}`} passHref>
-          <Button type="primary" size={"large"}>
-            Go Back
-          </Button>
-        </Link>
-      )}
-      <p></p>
-      <Title level={3}>User Accounts</Title>
-      <Table dataSource={tableData} columns={columns} />
-    </div>
-  );
+  if (userData) {
+    // Convert to table data format
+    const tableData = userData.map((userDataItem) => {
+      return { ...userDataItem.attributes, key: userDataItem.attributes.id };
+    });
+    return (
+      <div>
+        {refer && (
+          <Link href={`/search/${refer}`} passHref>
+            <Button type="primary" size={"large"}>
+              Go Back
+            </Button>
+          </Link>
+        )}
+        <p></p>
+        <Title level={3}>User Accounts</Title>
+        <Table dataSource={tableData} columns={columns} />
+      </div>
+    );
+  } else {
+    return <div>Userdata could not be loaded</div>;
+  }
 };
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
@@ -72,9 +76,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         },
       };
     } catch (e) {
-      // show error dialog box for API error
-    } finally {
-      // setLoading(false);
+      message.error("Account with the specified id does not exist");
     }
   }
 
