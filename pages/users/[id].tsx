@@ -1,7 +1,9 @@
 import type { NextPage, GetServerSidePropsContext } from "next";
 import Axios from "axios";
-import { Table, Button } from "antd";
+import { Table, Button, Typography } from "antd";
 import Link from "next/link";
+
+const { Title } = Typography;
 
 interface UserData {
   userData: [AccountData];
@@ -43,7 +45,6 @@ const Account: NextPage<UserData> = ({ userData, refer }) => {
   });
   return (
     <div>
-      <Table dataSource={tableData} columns={columns} />
       {refer && (
         <Link href={`/search/${refer}`} passHref>
           <Button type="primary" size={"large"}>
@@ -51,6 +52,9 @@ const Account: NextPage<UserData> = ({ userData, refer }) => {
           </Button>
         </Link>
       )}
+      <p></p>
+      <Title level={3}>User Accounts</Title>
+      <Table dataSource={tableData} columns={columns} />
     </div>
   );
 };

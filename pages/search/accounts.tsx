@@ -3,7 +3,7 @@ import { Input } from "antd";
 import styles from "../styles/UserSearch.module.css";
 import Axios from "axios";
 import { useState } from "react";
-import { Card, Spin, Button } from "antd";
+import { Card, Spin, Button, message } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import Link from "next/link";
 
@@ -39,12 +39,12 @@ const AccountSearch: NextPage = () => {
         );
         setAccountData(data);
       } catch (e) {
-        // show error dialog box for API error
+        message.error("Account with the specified id does not exist");
       } finally {
         setLoading(false);
       }
     } else {
-      // show error dialog box for wrong input
+      message.error("Please provide number as input");
     }
   };
   return (
@@ -55,6 +55,7 @@ const AccountSearch: NextPage = () => {
         enterButton
         loading={loading}
       />
+      <p></p>
       {loading && <Spin size="large" />}
       {accountData && (
         <>
@@ -64,6 +65,7 @@ const AccountSearch: NextPage = () => {
             <p>Balance: {accountData.attributes.balance}</p>
             <p>UserID: {accountData.attributes.user_id}</p>
           </Card>
+          <p></p>
           <Link
             href={`/users/${accountData.attributes.user_id}?refer=accounts`}
             passHref
