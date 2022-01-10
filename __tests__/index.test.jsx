@@ -6,7 +6,7 @@ describe("Home", () => {
     render(<Home />);
 
     const heading = screen.getByRole("heading", {
-      name: /welcome to next\.js!/i,
+      name: /Hey there this is a crypto wallet\. You can search users or accounts here\./i,
     });
 
     expect(heading).toBeInTheDocument();

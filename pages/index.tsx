@@ -2,9 +2,9 @@ import type { NextPage } from "next";
 
 const Home: NextPage = () => {
   return (
-    <div>
+    <h3>
       Hey there this is a crypto wallet. You can search users or accounts here.
-    </div>
+    </h3>
   );
 };
 
