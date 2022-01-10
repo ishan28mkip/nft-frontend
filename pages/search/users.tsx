@@ -64,7 +64,15 @@ const UserSearch: NextPage = () => {
           </Card>
           <p></p>
           <Link href={`/users/${userData.attributes.id}?refer=users`} passHref>
-            <Button type="primary" icon={<UserOutlined />} size={"large"}>
+            <Button
+              type="primary"
+              icon={<UserOutlined />}
+              size={"large"}
+              onClick={() => {
+                setLoading(true);
+                setUserData(null);
+              }}
+            >
               Click to go to User Account Page
             </Button>
           </Link>

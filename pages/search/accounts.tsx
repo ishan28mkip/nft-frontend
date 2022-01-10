@@ -70,7 +70,15 @@ const AccountSearch: NextPage = () => {
             href={`/users/${accountData.attributes.user_id}?refer=accounts`}
             passHref
           >
-            <Button type="primary" icon={<UserOutlined />} size={"large"}>
+            <Button
+              type="primary"
+              icon={<UserOutlined />}
+              size={"large"}
+              onClick={() => {
+                setLoading(true);
+                setAccountData(null);
+              }}
+            >
               Click to go to User Account Page
             </Button>
           </Link>
